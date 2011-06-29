@@ -7,14 +7,9 @@ class AutocukeTest < Test::Unit::TestCase
     @output = ""
   end
 
-
   def call(options)
-    puts "#{@bin} #{options}"
-    out = `#{@bin} #{options}`
-    puts "OUT: #{out}"
-    out
+    `#{@bin} #{options}`
   end
-
   
   should "have classes defined" do
     assert defined?(Autocuke)
