@@ -5,7 +5,8 @@ module Autocuke
   class Runtime
     
     attr_reader   :root, :options
-    attr_accessor :files
+    attr_accessor :files, :current_file
+    
     
     def initialize(options)
       @options = options
@@ -40,7 +41,7 @@ module Autocuke
     end
     
     def stop!
-      EM.stop_event_loop
+      EM.stop
     end
     
     def watch(file)
