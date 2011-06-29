@@ -1,7 +1,7 @@
 Autocuke
 ========
 
-### Since spork + cucumber-rails is (broken)[https://github.com/timcharper/spork/issues/122]. ;)
+#### Since spork + cucumber-rails is [broken](https://github.com/timcharper/spork/issues/122). ;)
 
 Autocuke uses EventMachine to watch your .feature files, then automatically runs cucumber as they change.
 
