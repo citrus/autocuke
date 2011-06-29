@@ -34,8 +34,13 @@ module Autocuke
       EM.run {
         files.each do |file|
           watch(file)
-        end        
+        end  
         puts "autocuke is up and running!"
+        
+        trap "SIGINT", proc{
+          puts "\nbye-bye!"
+          exit          
+        }
       }
       
     end
