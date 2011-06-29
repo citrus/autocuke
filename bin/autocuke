@@ -32,6 +32,7 @@ OptionParser.new do |opts|
 
   opts.on_tail("--version", "Show version") do
     puts [ "autocuke v", Autocuke::VERSION ].join
+    exit
   end
   
 end.parse!
