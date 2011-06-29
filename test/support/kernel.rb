@@ -1,3 +1,7 @@
+# Captures output from `puts`
+#   thanks @ Rob Olson
+#   http://thinkingdigitally.com/archive/capturing-output-from-puts-in-ruby/
+
 require 'stringio'
  
 module Kernel
