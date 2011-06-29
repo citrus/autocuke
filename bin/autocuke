@@ -1,5 +1,21 @@
 #!/usr/bin/env ruby
 $:.unshift File.expand_path("../../lib", __FILE__)
+require 'optparse'
 require 'autocuke'
+
 options = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: example.rb [options]"
+
+  opts.on("-f", "--files", "Select files to monitor") do |f|
+    options[:files] = Dir[f]
+  end
+  
+  opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
+    options[:verbose] = v
+  end
+  
+end.parse!
+
 Autocuke::Runtime.new(options).run!
