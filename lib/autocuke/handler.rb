@@ -2,8 +2,11 @@ module Autocuke
   module Handler
     
     def file_modified
-      puts "#{File.basename(path)} modified - re-cuking it."
-      system("bundle exec cucumber #{path}")
+      local = path.sub(/.*#{runtime.options.root}\/?/, '')
+      cmd   = "cd #{runtime.root}; bundle exec cucumber -p autocuke #{local}"
+      puts "#{local} modified - re-cuking it."
+      puts cmd if runtime.options.verbose
+      system(cmd)
     end
     
     def file_moved
@@ -13,7 +16,7 @@ module Autocuke
     def file_deleted
       if File.exists?(path)
         file_modified
-        Autocuke.active_runtime.watch(path)
+        runtime.watch(path)
       else      
         stop!
       end
@@ -25,9 +28,13 @@ module Autocuke
 
     private
     
+      def runtime
+        Autocuke.active_runtime
+      end
+    
       def stop!
         puts "#{File.basename(path)} is no longer available! Autocuke stopping..."
-        Autocuke.active_runtime.stop!
+        runtime.stop!
       end
     
   end

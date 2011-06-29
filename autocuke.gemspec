@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Spencer Steffen"]
   s.email       = ["spencer@citrusme.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Autocuke uses EventMachine to watch your .feature files, then automatically runs cucumber as they change.}
+  s.description = %q{Autocuke uses EventMachine to watch your .feature files, then automatically runs cucumber as they change.}
 
   s.rubyforge_project = "autocuke"
 

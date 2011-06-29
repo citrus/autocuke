@@ -6,14 +6,19 @@ require 'optparse'
 require 'ostruct'
 
 options = OpenStruct.new
-options.root = File.join(Dir.getwd, "features")
-options.verbose = false
+options.root     = File.join(Dir.getwd)
+options.features = File.join(options.root, "features")
+options.verbose  = false
 
 OptionParser.new do |opts|
   opts.banner = "Usage: autocuke [options]"
 
-  opts.on("-d", "--dir DIRECTORY", "Watch for .feature files in DIRECTORY") do |dir|
+  opts.on("-r", "--root DIRECTORY", "Set the root directory to DIRECTORY") do |dir|
     options.root = dir
+  end
+
+  opts.on("-d", "--dir DIRECTORY", "Watch for .feature files in DIRECTORY") do |dir|
+    options.dir = dir
   end
 
   opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
