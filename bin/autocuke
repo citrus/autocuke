@@ -1,21 +1,34 @@
 #!/usr/bin/env ruby
 $:.unshift File.expand_path("../../lib", __FILE__)
-require 'optparse'
-require 'autocuke'
 
-options = {}
+require 'autocuke'
+require 'optparse'
+require 'ostruct'
+
+options = OpenStruct.new
+options.root = File.join(Dir.getwd, "features")
+options.verbose = false
 
 OptionParser.new do |opts|
-  opts.banner = "Usage: example.rb [options]"
+  opts.banner = "Usage: autocuke [options]"
 
-  opts.on("-f", "--files", "Select files to monitor") do |f|
-    options[:files] = Dir[f]
+  opts.on("-d", "--dir DIRECTORY", "Watch for .feature files in DIRECTORY") do |dir|
+    options.root = dir
   end
-  
+
   opts.on("-v", "--[no-]verbose", "Run verbosely") do |v|
-    options[:verbose] = v
+    options.verbose = v
+  end
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+
+  opts.on_tail("--version", "Show version") do
+    puts [ "autocuke v", Autocuke::VERSION ].join
   end
   
 end.parse!
 
-Autocuke::Runtime.new(options).run!
+Autocuke.start(options)
