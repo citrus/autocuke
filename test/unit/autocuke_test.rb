@@ -4,13 +4,16 @@ class AutocukeTest < Test::Unit::TestCase
 
   def setup
     @bin = File.expand_path("../../../bin/autocuke", __FILE__)    
+    @output = ""
   end
 
 
   def call(options)
-    system([ @bin, options ].join(" "))
+    puts "#{@bin} #{options}"
+    out = `#{@bin} #{options}`
+    puts "OUT: #{out}"
+    out
   end
-
 
   
   should "have classes defined" do
@@ -24,16 +27,17 @@ class AutocukeTest < Test::Unit::TestCase
     assert File.executable?(@bin)    
   end
   
-  context "Autocuke help menu" do
-  
-    setup do
-      @output = capture_stdout do 
-        call("-h")
-      end
+  context "Autocuke options" do
+      
+    should "display help" do
+      @output = call("-h")
+      assert @output.include?("Usage: autocuke [options]")
+      %w(-r --root -d --dir -v --[no-]verbose -h --help --version).map{|i| assert @output.include?(i) }
     end
   
-    should "display help" do
-      assert @output.include?("Usage: autocuke [options]")
+    should "display version and exit" do
+      @output = call("--version")
+      assert_equal "autocuke v#{Autocuke::VERSION}\n", @output
     end
   
   end

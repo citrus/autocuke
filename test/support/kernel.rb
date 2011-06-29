@@ -10,5 +10,5 @@ module Kernel
     ensure
       $stdout = STDOUT
   end
- 
+   
 end
