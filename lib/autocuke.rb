@@ -1,3 +1,4 @@
+require "ostruct"
 require "fileutils"
 require "autocuke/runtime"
 require "autocuke/version"

@@ -1,9 +1,8 @@
 #!/usr/bin/env ruby
 $:.unshift File.expand_path("../../lib", __FILE__)
 
-require 'autocuke'
-require 'optparse'
-require 'ostruct'
+require "autocuke"
+require "optparse"
 
 options = OpenStruct.new
 options.root     = File.join(Dir.getwd)
