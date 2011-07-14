@@ -40,8 +40,11 @@ class RuntimeTest < Test::Unit::TestCase
     end
 
     should "start EM reactor" do
-      output = within_loop do
-        @rt.run!
+      output = capture_stdout do
+        EM.run {
+          @rt.run!
+          EM.stop
+        }
       end
       assert_equal "autocuke is up and running!\n", output.string
     end

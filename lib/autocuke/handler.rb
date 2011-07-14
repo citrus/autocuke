@@ -4,12 +4,12 @@ module Autocuke
     def file_modified
       return if runtime.current_file
       runtime.current_file = path
-       
-      puts "#{local} modified - re-cuking it."
-            
+      
       local = path.sub(/.*#{runtime.options.root}\/?/, '')
       cmd   = "cd #{runtime.root}; bundle exec cucumber -p autocuke #{local}"
 
+      puts "#{local} modified - re-cuking it."
+      
       run_with_defer cmd      
     end
     
