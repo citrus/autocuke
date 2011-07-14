@@ -1,4 +1,3 @@
-require 'tempfile'
 require_relative '../test_helper'
 
 
@@ -19,7 +18,7 @@ module MockHandler
       operation = proc {
         puts(cmd)
         # simulate delay
-        sleep 0.25
+        #sleep 0.25
       }
       callback = proc {|result|
         runtime.current_file = nil
@@ -54,7 +53,7 @@ class HandlerTest < Test::Unit::TestCase
   should "watch a file" do
     
     outputs = within_loop do
-      File.open(@features.first, 'w'){ |f| f.puts "hi" }
+      File.open(@features.first, 'w+'){ |f| f.write "\n" }
     end
     
     # disregard the start-up message
@@ -63,33 +62,11 @@ class HandlerTest < Test::Unit::TestCase
     assert $modified
     
     name = File.basename(@features.first)
-    assert_equal "features/#{name} modified - re-cuking it.", outputs.first
+    assert_equal "features/#{name} modified - re-cuking it.", outputs.shift
     
-    commands = outputs.last.split("; ")
+    commands = outputs.shift.split("; ")
     assert_equal "cd #{@options.root}", commands.first
     assert_equal "bundle exec cucumber -p autocuke features/#{name}", commands.last
   end
-
-  
-  should "only cuke one file at time" do
-    
-    outputs = within_loop do
-      File.open(@features.first, 'w+'){ |f| f.write "\n" }
-      File.open(@features.last, 'w+'){ |f| f.write "\n" }
-    end
-    
-    ## disregard the start-up message
-    #outputs.shift
-    #
-    #assert $modified
-    
-    #name = File.basename(@features.first)
-    #assert_equal "features/#{name} modified - re-cuking it.", outputs.first
-    #
-    #commands = outputs.last.split("; ")
-    #assert_equal "cd #{@options.root}", commands.first
-    #assert_equal "bundle exec cucumber -p autocuke features/#{name}", commands.last
-  end
-
 
 end

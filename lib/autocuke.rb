@@ -12,6 +12,10 @@ module Autocuke
     @active_runtime.run!
   end
   
+  def self.set_active_runtime(runtime)
+    @active_runtime = runtime
+  end
+  
   def self.active_runtime
     @active_runtime
   end

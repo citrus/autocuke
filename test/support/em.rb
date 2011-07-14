@@ -9,7 +9,7 @@ class Test::Unit::TestCase
   end
   
   def current_runtime_options
-    @current_runtime_options
+    @current_runtime_options ||= default_runtime_options
   end
 
   def within_loop(opts={}, &block)
