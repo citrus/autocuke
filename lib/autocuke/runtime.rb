@@ -33,6 +33,7 @@ module Autocuke
       }      
     end
     
+    # Logs the root and file list
     def log
       puts "Root Set To:"
       puts root
