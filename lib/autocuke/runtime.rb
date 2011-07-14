@@ -7,7 +7,6 @@ module Autocuke
     attr_reader   :root, :options
     attr_accessor :files, :current_file
     
-    
     def initialize(options)
       @options = options
       @root    = options.root
@@ -29,7 +28,6 @@ module Autocuke
 
       # file watching requires kqueue on OSX
       EM.kqueue = true if EM.kqueue?
-
 
       EM.run {
         files.each do |file|

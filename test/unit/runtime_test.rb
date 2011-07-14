@@ -38,6 +38,7 @@ class RuntimeTest < Test::Unit::TestCase
 
   end
 
+
   context "A new, valid runtime" do
     
     setup do
@@ -53,30 +54,22 @@ class RuntimeTest < Test::Unit::TestCase
     end
 
     should "start EM reactor" do
-    
       output = within_loop do
         @rt.run!
       end
-      
-      #EM.run {
-      #  output = capture_stdout do 
-      #    @rt.run!        
-      #    sleep 1
-      #    FileUtils.touch(@features.first)
-      #    sleep 1          
-      #  end
-      #  
-      puts "\nSTRING:"
-      puts output.string
-      puts "---\n"
-      #  
-      #  EM.stop_event_loop
-      #}
-      #puts fiber.resume @rt.run!
-      #puts fiber.resume true
-      
+      assert_equal "autocuke is up and running!\n", output.string
     end
 
+    # not quite sure how to make this work
+    
+    #should "watch a file" do
+    #  output = within_loop do
+    #    @rt.run!
+    #    File.open(@features.first, 'w+') { |file| file.write "\n\n"; file.close }
+    #  end
+    #  puts output.string
+    #end
+    
   end
 
 end

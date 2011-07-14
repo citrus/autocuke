@@ -1,24 +1,16 @@
 module Autocuke
   module Handler
-    
+
     def file_modified
       return if runtime.current_file
       runtime.current_file = path
+       
+      puts "#{local} modified - re-cuking it."
             
       local = path.sub(/.*#{runtime.options.root}\/?/, '')
       cmd   = "cd #{runtime.root}; bundle exec cucumber -p autocuke #{local}"
 
-      puts "#{local} modified - re-cuking it."
-      puts cmd if runtime.options.verbose
-
-      operation = proc {
-        system(cmd)
-      }
-      callback = proc {|result|
-        runtime.current_file = nil
-      }
-      EM.defer operation, callback
-      
+      run_with_defer cmd      
     end
     
     def file_moved
@@ -35,10 +27,21 @@ module Autocuke
     end
     
     def unbind
-      #stop!
+      stop! unless File.exists?(path)
     end
 
     private
+    
+      def run_with_defer(cmd)
+        puts cmd if runtime.options.verbose
+        operation = proc {
+          system(cmd)
+        }
+        callback = proc {|result|
+          runtime.current_file = nil
+        }
+        EM.defer operation, callback
+      end
     
       def runtime
         Autocuke.active_runtime
