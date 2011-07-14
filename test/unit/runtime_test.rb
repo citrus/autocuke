@@ -46,7 +46,34 @@ class RuntimeTest < Test::Unit::TestCase
           EM.stop
         }
       end
-      assert_equal "autocuke is up and running!\n", output.string
+      assert_equal "autocuke is up and running!", output.string.strip
+    end
+    
+  end
+  
+  
+  context "The default test runtime" do
+  
+    should "also start the EM reactor" do
+      outputs = within_loop do
+        # nothing
+      end
+      assert_equal "autocuke is up and running!", outputs.first
+    end
+    
+    should "start the EM reactor in verbose mode" do
+      outputs = within_loop :verbose => true, do
+        # nothing
+      end
+      assert_equal "Root Set To:", outputs.shift
+      assert_equal current_runtime_options.root, outputs.shift
+      assert_equal "Watching files:", outputs.shift
+      # ignore the line
+      outputs.shift
+      @features.each do |feature|
+        assert_equal feature, outputs.shift
+      end
+      assert_equal "autocuke is up and running!", outputs.shift
     end
     
   end
