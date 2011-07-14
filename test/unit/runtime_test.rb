@@ -5,21 +5,7 @@ class RuntimeTest < Test::Unit::TestCase
   def setup
     @features = Dir[File.expand_path("../../dummy/features/**/*.feature", __FILE__)]
   end
-  
-  def within_loop(&block)
-    yield EM.run {
-      output = capture_stdout do 
-        @rt.run!        
-        EM.add_timer(0.01){ 
-          File.open(@features.first, 'w+') {|file| file.write("\n"); file.close }
-        }        
-      end       
-      EM.stop      
-      return output
-    }
-  end
-  
-  
+    
   context "A new, invalid runtime" do
     
     setup do
@@ -59,17 +45,6 @@ class RuntimeTest < Test::Unit::TestCase
       end
       assert_equal "autocuke is up and running!\n", output.string
     end
-
-    # not quite sure how to make this work
-    
-    #should "watch a file" do
-    #  output = within_loop do
-    #    @rt.run!
-    #    File.open(@features.first, 'w+') { |file| file.write "\n\n"; file.close }
-    #  end
-    #  puts output.string
-    #end
     
   end
-
 end
