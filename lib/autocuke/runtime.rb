@@ -30,9 +30,7 @@ module Autocuke
       EM.kqueue = true if EM.kqueue?
 
       EM.run {
-        files.each do |file|
-          watch(file)
-        end  
+        watch_feature_files 
         puts "autocuke is up and running!"
         
         trap "SIGINT", proc{
@@ -47,8 +45,18 @@ module Autocuke
       EM.stop
     end
     
+    def watch_feature_files
+      files.each do |file|
+        watch(file)
+      end 
+    end
+    
     def watch(file)
-      EM.watch_file(File.expand_path(file), Autocuke::Handler)
+      EM.watch_file(File.expand_path(file), handler)
+    end
+    
+    def handler
+      Autocuke::Handler
     end
      
   end # Runtime
