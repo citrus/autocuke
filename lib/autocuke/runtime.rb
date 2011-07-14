@@ -4,7 +4,7 @@ require "autocuke/handler"
 module Autocuke
   class Runtime
     
-    attr_reader   :root, :options
+    attr_reader   :root,  :options
     attr_accessor :files, :current_file
     
     def initialize(options)
@@ -31,14 +31,12 @@ module Autocuke
 
       EM.run {
         watch_feature_files 
-        puts "autocuke is up and running!"
-        
+        puts "autocuke is up and running!"        
         trap "SIGINT", proc{
           puts "\nbye-bye!"
           exit          
         }
-      }
-      
+      }      
     end
     
     def stop!
