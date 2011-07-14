@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   # Development
   s.add_development_dependency('dummier',          '>= 0.2.0')
   s.add_development_dependency('shoulda',          '>= 2.11.3')
+  s.add_development_dependency('rails',            '>= 3.0.0')
   s.add_development_dependency('cucumber-rails',   '>= 1.0.2')
   s.add_development_dependency('database_cleaner', '>= 0.6.7')
 	s.add_development_dependency('sqlite3',          '>= 1.3.3')
