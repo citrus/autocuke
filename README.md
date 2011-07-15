@@ -11,7 +11,7 @@ Installation
 If you're using bundler, just add this to your Gemfile:
     
     group :test do
-      gem "autocuke", "0.1.0"
+      gem "autocuke", "0.1.1"
     end
 
 Then create a bundle-of-joy with:
