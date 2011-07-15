@@ -60,6 +60,11 @@ module Autocuke
     def handler
       Autocuke::Handler
     end
+    
+    # Stops the EM reactor
+    def stop!
+      EM.stop
+    end
      
   end # Runtime
 end # Autocuke
