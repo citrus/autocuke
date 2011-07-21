@@ -1,3 +1,6 @@
+# Autocuke [![Build Status](https://secure.travis-ci.org/citrus/autocuke.png)](http://travis-ci.org/citrus/autocuke)
+
+
 Autocuke
 ========
 
